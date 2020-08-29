@@ -1,4 +1,4 @@
-﻿namespace TextEditorWPF
+﻿namespace TextEditorWPF.BL
 {
     public interface IMessageService
     {

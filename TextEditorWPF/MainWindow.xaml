@@ -6,19 +6,56 @@
         xmlns:local="clr-namespace:TextEditorWPF"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="TextEditorWPF.MainWindow"
         mc:Ignorable="d"
-        Title="Текстовый редактор" Height="500" Width="800">
+        Title="Текстовый редактор" Height="500" Width="800" MinWidth="400" MinHeight="300">
     <Grid>
-        <Label Content="Выберите файл:" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.383,-0.538"/>
-        <TextBox x:Name="fldFilePath" Height="23" Margin="110,24,202,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button x:Name="btnSelectFile" Content="Выбрать" HorizontalAlignment="Right" Margin="0,26,110,0" VerticalAlignment="Top" Width="75" HorizontalContentAlignment="Center"/>
-        <Button x:Name="btnOpenFile" Content="Открыть" HorizontalAlignment="Right" Margin="0,26,20,0" VerticalAlignment="Top" Width="75"/>
-        <Label Content="Шрифт" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top"/>
-        <xctk:IntegerUpDown x:Name="numFont" Margin="110,71,0,0" VerticalAlignment="Top" Minimum="6" Maximum="72" Text="6" Value="11" HorizontalAlignment="Left" Width="50"/>
-        <TextBox x:Name="fldContent" Margin="10,112,20,87" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
-        <Button x:Name="btnSaveFile" Content="Сохранить" Margin="0,0,20,50" HorizontalAlignment="Right" Width="75" Height="25" VerticalAlignment="Bottom"/>
-        <StatusBar Margin="10,0,20,9" Height="30" VerticalAlignment="Bottom">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Выберите файл:" HorizontalAlignment="Right"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FilePath}" Height="23" TextWrapping="Wrap" VerticalAlignment="Center"/>
+
+        <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" >
+            <Button x:Name="btnSelectFile" Content="Выбрать"
+                    Margin="5" Width="75" HorizontalContentAlignment="Center"
+                    Command="{Binding ChooseFileCommand}"/>
+            <Button x:Name="btnOpenFile" Content="Открыть" 
+                    Margin="0 5 5 5" Width="75"
+                    Command="{Binding OpenFileCommand}"/>
+        </StackPanel>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Шрифт" HorizontalAlignment="Right"/>
+        <xctk:IntegerUpDown Grid.Row="1" Grid.Column="1" 
+                            Minimum="6" Maximum="72"
+                            Text="6" Value="{Binding FontSize}"
+                            HorizontalAlignment="Left" Width="50"/>
+
+        <TextBox Grid.Row="2" Grid.ColumnSpan="3" 
+                 Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" Margin="5" TextWrapping="Wrap" 
+                 FontSize="{Binding FontSize}"
+                 VerticalScrollBarVisibility="Auto" 
+                 HorizontalScrollBarVisibility="Auto"/>
+
+        <Button Grid.Row="3" Grid.Column="2" 
+                x:Name="btnSaveFile" Margin="10" 
+                Content="Сохранить" Height="24"
+                Command="{Binding SaveFileCommand}"/>
+
+        <StatusBar Grid.Row="4" Grid.ColumnSpan="3" Margin="10,5,10,10" Height="30" VerticalAlignment="Bottom">
             <Label Content="Количество символов:"/>
-            <Label x:Name="lblSymbolCount"/>
+            <Label x:Name="lblSymbolCount" Content="{Binding CountSymbols}"/>
         </StatusBar>
     </Grid>
 </Window>

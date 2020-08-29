@@ -1,7 +1,6 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
-namespace TextEditorWPF.BL
+namespace TextEditorWPF.BL.FileManager
 {
     public interface IFileManager
     {
@@ -10,6 +9,5 @@ namespace TextEditorWPF.BL
         string GetContent(string filePath, Encoding encoding);
         void SaveContent(string content, string filePath);
         void SaveContent(string content, string filePath, Encoding encoding);
-        int GetSymbolCount(string content);
     }
 }
